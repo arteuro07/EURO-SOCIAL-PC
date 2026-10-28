@@ -6,11 +6,15 @@
       "id": "CHAR-KEVIN",
       "name": "Kévin",
       "alias": "Le Boss",
-      "status": "concept",
-      "version": "v001",
-      "visual_spec": "Silhouette expressive, posture de chef, tenue urbaine originale et cohérente entre épisodes. Design à valider avant modélisation.",
+      "status": "art-direction-revision",
+      "version": "v002",
+      "visual_spec": "Direction artistique cible : personnage de dessin animé 3D cinématographique, stylisé haut de gamme, proportions expressives, grands yeux vivants, coiffure afro texturée en boucles détaillées, peau brun chaud, sweat anthracite à cordons blancs et emblème couronne jaune. Visage et vêtements cohérents dans toutes les vues ; expressions sourire, surprise, rire, sérieux et pose en action. Le prototype géométrique précédent est rejeté et ne doit pas servir de référence de qualité.",
       "voice_spec": "Français familier, voix confiante et théâtrale, accélère quand il panique.",
-      "traits": ["orgueilleux", "charismatique", "improvisateur"],
+      "traits": [
+        "orgueilleux",
+        "charismatique",
+        "improvisateur"
+      ],
       "first_episode": "E001",
       "asset_path": "assets/characters/CHAR-KEVIN/"
     },
@@ -18,11 +22,15 @@
       "id": "CHAR-JUNIOR",
       "name": "Junior",
       "alias": "Algorithm",
-      "status": "concept",
-      "version": "v001",
-      "visual_spec": "Silhouette nerveuse, lunettes distinctives, accessoires de pseudo-stratège. Design original à valider.",
+      "status": "art-direction-revision",
+      "version": "v002",
+      "visual_spec": "Direction artistique cible : dessin animé 3D cinématographique haut de gamme, silhouette nerveuse, lunettes distinctives, casquette bleue portée à l'envers, veste bleue et accessoires de pseudo-stratège. Expressions et vêtements cohérents entre les vues ; design original à développer.",
       "voice_spec": "Pseudo-technique, slogans de mise à jour, ton sérieux pour des idées absurdes.",
-      "traits": ["compétitif", "bavard", "inventif mais maladroit"],
+      "traits": [
+        "compétitif",
+        "bavard",
+        "inventif mais maladroit"
+      ],
       "first_episode": "E001",
       "asset_path": "assets/characters/CHAR-JUNIOR/"
     },
@@ -30,11 +38,15 @@
       "id": "CHAR-MAYA",
       "name": "Maya",
       "alias": "La Juge",
-      "status": "concept",
-      "version": "v001",
-      "visual_spec": "Silhouette stable et reconnaissable, regard expressif, style urbain original. Design à valider.",
+      "status": "art-direction-revision",
+      "version": "v002",
+      "visual_spec": "Direction artistique cible : dessin animé 3D cinématographique haut de gamme, visage expressif, tresses ou coiffure protectrice détaillée, bijoux dorés discrets, veste rose et posture assurée. Expressions et vêtements cohérents entre les vues ; design original à développer.",
       "voice_spec": "Calme, ironique, précise ; peu de mots.",
-      "traits": ["lucide", "sarcastique", "débrouillarde"],
+      "traits": [
+        "lucide",
+        "sarcastique",
+        "débrouillarde"
+      ],
       "first_episode": "E001",
       "asset_path": "assets/characters/CHAR-MAYA/"
     }
