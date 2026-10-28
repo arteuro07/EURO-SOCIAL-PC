@@ -1,0 +1,44 @@
+name: Rendu 3D — aperçu E001
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "production/blender_preview.py"
+      - "production/preview.srt"
+      - ".github/workflows/render-preview.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Récupérer les sources
+        uses: actions/checkout@v4
+      - name: Installer Blender, FFmpeg et polices
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender ffmpeg fonts-dejavu-core
+          blender --version
+          ffmpeg -version | head -n 2
+      - name: Préparer les dossiers
+        run: mkdir -p /tmp/euro_frames output
+      - name: Rendre la scène 3D
+        run: blender -b -t 2 --python production/blender_preview.py
+      - name: Encoder la vidéo verticale avec sous-titres
+        run: |
+          test -f /tmp/euro_frames/frame_0001.png
+          ffmpeg -y             -framerate 12 -start_number 1 -i /tmp/euro_frames/frame_%04d.png             -vf "subtitles=production/preview.srt:force_style='FontName=DejaVu Sans,FontSize=18,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=1,Alignment=2,MarginV=48',format=yuv420p"             -c:v libx264 -preset ultrafast -crf 25 -movflags +faststart             -an output/boss-de-rien-preview-3d.mp4
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,r_frame_rate -of default=noprint_wrappers=1 output/boss-de-rien-preview-3d.mp4
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 output/boss-de-rien-preview-3d.mp4)" = "360"
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 output/boss-de-rien-preview-3d.mp4)" = "640"
+      - name: Publier l'aperçu comme artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: boss-de-rien-preview-3d
+          path: output/boss-de-rien-preview-3d.mp4
+          if-no-files-found: error
+          retention-days: 7
