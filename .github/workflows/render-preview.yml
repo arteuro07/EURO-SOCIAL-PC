@@ -21,7 +21,7 @@ jobs:
       - name: Installer Blender, FFmpeg et polices
         run: |
           sudo apt-get update
-          sudo apt-get install -y blender ffmpeg fonts-dejavu-core
+          sudo apt-get install -y blender ffmpeg fonts-dejavu-core libegl1 libgl1
           blender --version
           ffmpeg -version | head -n 2
       - name: Préparer les dossiers
