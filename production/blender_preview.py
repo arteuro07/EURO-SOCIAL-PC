@@ -11,12 +11,12 @@ scene.render.engine = "BLENDER_EEVEE"
 scene.eevee.use_gtao = True
 scene.eevee.gtao_distance = 3
 scene.eevee.gtao_factor = 1.25
-scene.render.resolution_x = 540
-scene.render.resolution_y = 960
+scene.render.resolution_x = 360
+scene.render.resolution_y = 640
 scene.render.resolution_percentage = 100
 scene.render.fps = 12
 scene.frame_start = 1
-scene.frame_end = 120
+scene.frame_end = 72
 scene.render.image_settings.file_format = "PNG"
 scene.render.image_settings.color_mode = "RGBA"
 scene.render.image_settings.color_depth = "8"
@@ -151,12 +151,12 @@ for x in [-0.19, 0.19]:
 curve_line("Couronne du logo", [(-0.23,-0.49,1.35),(-0.22,-0.50,1.52),(-0.08,-0.50,1.42),(0,-0.50,1.57),(0.10,-0.50,1.42),(0.22,-0.50,1.52),(0.23,-0.49,1.35),(-0.23,-0.49,1.35)], gold, 0.025)
 
 # Petite animation d'expression : mouvement du corps, inclinaison de tête et haussement des épaules.
-for frame, tilt, z in [(1, 0.0, 0.0), (28, -0.04, 0.04), (58, 0.05, 0.0), (88, -0.025, 0.03), (120, 0.0, 0.0)]:
+for frame, tilt, z in [(1, 0.0, 0.0), (18, -0.04, 0.04), (36, 0.05, 0.0), (54, -0.025, 0.03), (72, 0.0, 0.0)]:
     head.rotation_euler[1] = tilt
     head.location.z = 2.58 + z
     head.keyframe_insert(data_path="rotation_euler", frame=frame)
     head.keyframe_insert(data_path="location", frame=frame)
-for frame, angle in [(1,0), (28,math.radians(-7)), (58,math.radians(5)), (88,math.radians(-4)), (120,0)]:
+for frame, angle in [(1,0), (18,math.radians(-7)), (36,math.radians(5)), (54,math.radians(-4)), (72,0)]:
     torso.rotation_euler[1] = angle
     torso.keyframe_insert(data_path="rotation_euler", frame=frame)
 # Camera portrait rapprochée, léger mouvement vers le visage.
@@ -171,7 +171,7 @@ scene.camera = cam
 cam.location.x = 3.4
 cam.keyframe_insert(data_path="location", frame=1)
 cam.location.x = 2.9
-cam.keyframe_insert(data_path="location", frame=120)
+cam.keyframe_insert(data_path="location", frame=72)
 cam.data.lens = 50
 
 # Éclairage cinématique chaud/froid.
