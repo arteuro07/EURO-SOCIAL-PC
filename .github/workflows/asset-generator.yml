@@ -1,0 +1,44 @@
+name: Générateur d'assets personnages
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "production/asset_generator.py"
+      - ".github/workflows/asset-generator.yml"
+      - "assets/characters/registry.json"
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        character: [kevin, junior, maya]
+    steps:
+      - name: Récupérer les sources
+        uses: actions/checkout@v4
+      - name: Installer Blender
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender libegl1 libgl1
+          blender --version
+      - name: Générer la fiche et le fichier Blender
+        run: |
+          mkdir -p output/assets
+          blender -b -t 2 --python production/asset_generator.py -- --character "${{ matrix.character }}" --out output/assets --size 480
+          test -s "output/assets/${{ matrix.character }}-character.blend"
+          test -s "output/assets/${{ matrix.character }}-character-sheet.png"
+      - name: Publier les fichiers générés
+        uses: actions/upload-artifact@v4
+        with:
+          name: euro-social-pc-${{ matrix.character }}-assets
+          path: |
+            output/assets/${{ matrix.character }}-character.blend
+            output/assets/${{ matrix.character }}-character-sheet.png
+          if-no-files-found: error
+          retention-days: 14
