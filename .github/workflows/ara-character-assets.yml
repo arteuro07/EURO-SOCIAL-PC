@@ -1,0 +1,62 @@
+name: "BOSS DE RIEN — vrais personnages 3D"
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "assets/characters/**/ara-params.json"
+      - ".github/workflows/ara-character-assets.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    name: "Générer les personnages humains riggés"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: KEVIN
+            params: assets/characters/CHAR-KEVIN/ara-params.json
+          - id: JUNIOR
+            params: assets/characters/CHAR-JUNIOR/ara-params.json
+          - id: MAYA
+            params: assets/characters/CHAR-MAYA/ara-params.json
+    steps:
+      - name: Récupérer EURO-SOCIAL-PC
+        uses: actions/checkout@v4
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: /tmp/ara-3d-gen/package-lock.json
+      - name: Récupérer Ara 3D Gen
+        uses: actions/checkout@v4
+        with:
+          repository: olatunde85/3d-gen
+          path: /tmp/ara-3d-gen
+      - name: Installer le générateur et les données CC0
+        working-directory: /tmp/ara-3d-gen
+        run: |
+          npm ci
+          npm run setup-assets
+      - name: Générer modèle humain détaillé, rig et animations
+        working-directory: /tmp/ara-3d-gen
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}"
+          npm run export -- --params "$GITHUB_WORKSPACE/${{ matrix.params }}" --detail high --formats glb,fbx,zip --out "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}"
+          test -n "$(find "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}" -maxdepth 1 -type f -name '*.glb' -print -quit)"
+          test -n "$(find "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}" -maxdepth 1 -type f -name '*.fbx' -print -quit)"
+          test -n "$(find "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}" -maxdepth 1 -type f -name '*.zip' -print -quit)"
+          ls -lh "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}"
+      - name: Publier les vrais assets 3D
+        uses: actions/upload-artifact@v4
+        with:
+          name: boss-de-rien-character-${{ matrix.id }}
+          path: output/characters/${{ matrix.id }}/*
+          if-no-files-found: error
+          retention-days: 14
