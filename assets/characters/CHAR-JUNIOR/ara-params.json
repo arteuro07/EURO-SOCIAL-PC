@@ -22,8 +22,9 @@
   "faceBones": true,
   "restPose": "A",
   "animations": true,
-  "expression": "determined",
+  "expression": "neutral",
   "faceShapes": true,
   "speechShapes": true,
-  "hat": "none"
+  "hat": "none",
+  "accessories": ["glasses"]
 }
