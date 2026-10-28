@@ -28,24 +28,24 @@ jobs:
     steps:
       - name: Récupérer EURO-SOCIAL-PC
         uses: actions/checkout@v4
+      - name: Récupérer Ara 3D Gen
+        uses: actions/checkout@v4
+        with:
+          repository: olatunde85/3d-gen
+          path: ara-3d-gen
       - name: Installer Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: /tmp/ara-3d-gen/package-lock.json
-      - name: Récupérer Ara 3D Gen
-        uses: actions/checkout@v4
-        with:
-          repository: olatunde85/3d-gen
-          path: /tmp/ara-3d-gen
+          cache-dependency-path: ara-3d-gen/package-lock.json
       - name: Installer le générateur et les données CC0
-        working-directory: /tmp/ara-3d-gen
+        working-directory: ara-3d-gen
         run: |
           npm ci
           npm run setup-assets
       - name: Générer modèle humain détaillé, rig et animations
-        working-directory: /tmp/ara-3d-gen
+        working-directory: ara-3d-gen
         run: |
           mkdir -p "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}"
           npm run export -- --params "$GITHUB_WORKSPACE/${{ matrix.params }}" --detail high --formats glb,fbx,zip --out "$GITHUB_WORKSPACE/output/characters/${{ matrix.id }}"
