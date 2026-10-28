@@ -12,7 +12,7 @@
   "caucasian": 0.02,
   "skin": "auto",
   "skinTint": "#ffffff",
-  "hair": "buzz",
+  "hair": "afro01",
   "hairColor": "#17100d",
   "hairTint": "#ffffff",
   "outfit": "male_casualsuit01",
@@ -22,7 +22,7 @@
   "faceBones": true,
   "restPose": "A",
   "animations": true,
-  "expression": "confident",
+  "expression": "neutral",
   "faceShapes": true,
   "speechShapes": true
 }
