@@ -2,27 +2,30 @@
 
 Dossier réservé aux assets réutilisables de Kévin.
 
-## Direction artistique de référence
+## État du prototype
 
-Le style visé est un **dessin animé 3D stylisé**, proche d'un film d'animation familial : formes arrondies, proportions légèrement exagérées, grands yeux lisibles, sourcils très expressifs, sourire en coin et cheveux bouclés reconnaissables. Éclairage doux et cinématographique, matériaux propres, silhouette lisible même sur un écran de téléphone.
+Le premier aperçu Blender livré est **rejeté comme résultat artistique** : il ne constitue pas la qualité visuelle visée pour la série. Ne pas utiliser son image comme référence de design et ne pas lancer la production complète à partir de ce modèle.
 
-### Signes distinctifs à conserver
-- Peau brun chaud et coiffure afro courte, boucles visibles.
-- Sweat à capuche anthracite, cordons clairs et petit emblème couronne jaune.
-- Sourire confiant et menton légèrement relevé ; son assurance doit pouvoir basculer vers la panique en une expression.
-- Proportions cohérentes entre les plans : tête expressive, corps compact, mains et chaussures stylisées.
+## Direction artistique à atteindre
 
-### Critères d'acceptation avant production
-1. Le visage doit être plus expressif que réaliste, mais rester cohérent d'une image à l'autre.
-2. Le modèle doit garder les mêmes cheveux, vêtements, couleurs et proportions entre les épisodes.
-3. Tester au minimum sourire, surprise, rire et air vexé.
-4. Tester une animation courte avec mouvement de tête et de bras ; vérifier les déformations et la lisibilité sur mobile.
-5. Ne pas lancer l'épisode complet tant que le rendu réel n'a pas été validé.
+Le but reste un véritable dessin animé 3D stylisé, avec des personnages originaux et expressifs, des proportions cohérentes, des visages capables de jouer des émotions, des vêtements et cheveux détaillés, des décors travaillés, une lumière cinématographique et une animation lisible sur téléphone. Ce niveau est un objectif, pas un résultat déjà obtenu.
 
-La capture de référence montrée dans la conversation sert de guide artistique ; elle n'est pas un modèle 3D ni une ressource intégrée au dépôt.
+### Signes distinctifs prévus pour Kévin
+- Peau brun chaud et coiffure afro courte, boucles reconnaissables.
+- Sweat à capuche anthracite, cordons clairs et emblème couronne jaune.
+- Attitude de petit chef sûr de lui, qui bascule facilement vers la panique.
+- Silhouette identifiable et stable d'un plan à l'autre.
+
+## Critères obligatoires avant validation
+
+1. Présenter une image test lisible du personnage, sans prétendre qu'un assemblage de formes simples est un modèle final.
+2. Vérifier sourire, surprise, rire et air vexé.
+3. Tester une courte animation de tête et de bras et contrôler les déformations.
+4. Vérifier que le modèle reste cohérent entre plusieurs vues.
+5. Obtenir une validation visuelle avant de lancer l'épisode complet.
 
 ## Structure des assets
 
 Structure recommandée : `model/`, `rig/`, `textures/`, `expressions/`, `poses/`, `voice/`. Garder les sources et noter la version dans le registre.
 
-**Statut :** direction artistique à tester ; modèle final non validé.
+**Statut :** concept en cours ; le prototype actuel n'est pas validé.
