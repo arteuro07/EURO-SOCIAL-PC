@@ -11,3 +11,20 @@ Les scripts de rendu devront :
 6. sauvegarder le fichier source et les métadonnées avec l'épisode.
 
 Ne pas faire dépendre la bibliothèque d'assets des runners GitHub Actions temporaires.
+
+
+## Mini générateur d'assets 3D
+
+Le script `production/asset_generator.py` génère un fichier Blender modifiable (`.blend`) et une fiche PNG pour chaque personnage :
+- `kevin` : afro bouclé, sweat anthracite, cordons clairs et couronne jaune ;
+- `junior` : casquette bleue, lunettes et veste bleue ;
+- `maya` : coiffure tressée, veste rose et bijoux dorés.
+
+Le workflow GitHub Actions `Générateur d'assets personnages` lance les trois générations et publie trois artefacts séparés, conservés 14 jours. Depuis GitHub, ouvrir **Actions → Générateur d'assets personnages → dernier lancement → Artifacts**.
+
+Commande locale Blender :
+```bash
+blender -b -t 2 --python production/asset_generator.py -- --character kevin --out output/assets --size 480
+```
+
+**Limite connue :** c'est un générateur procédural de base, pas un système de sculpture IA, de retopologie ni de rig facial professionnel. Les modèles générés doivent être inspectés et améliorés ; la génération réussie ne signifie pas que la qualité artistique est validée. Les fichiers publiés comme artefacts GitHub expirent après 14 jours : récupérer et sauvegarder les fichiers nécessaires.
