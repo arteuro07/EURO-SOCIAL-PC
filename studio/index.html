@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101522">
+<title>EURO SOCIAL PC — Studio 3D</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151d2e;--line:#29354b;--text:#eef3ff;--muted:#9aa9c2;--accent:#72e0c0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px system-ui, sans-serif}
+header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;justify-content:space-between}h1{font-size:16px;margin:0}small{color:var(--muted)}
+main{display:grid;grid-template-columns:minmax(0,1fr) 290px;min-height:calc(100dvh - 58px)}
+#viewport{position:relative;min-height:60vh;background:radial-gradient(ellipse at 50% 40%,#25324a,#0b1020 70%);overflow:hidden}canvas{display:block;width:100%;height:100%;position:absolute;inset:0}
+#hint{position:absolute;left:12px;bottom:12px;background:#101827dd;border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:var(--muted);max-width:85%;font-size:12px}
+aside{padding:14px;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.group{border:1px solid var(--line);border-radius:12px;padding:12px}h2{font-size:13px;margin:0 0 10px;color:var(--accent)}
+button,.filelabel,select{width:100%;border:1px solid #40506b;border-radius:9px;background:#202c41;color:var(--text);padding:11px;margin:4px 0;font:inherit}
+button:active,.filelabel:active{transform:scale(.99)}button.primary{background:#176b5b;border-color:#258c77}
+input[type=file]{display:none}label{display:block;color:var(--muted);font-size:12px;margin-top:8px}
+.status{font-size:12px;color:var(--muted);line-height:1.5;white-space:pre-wrap}
+@media(max-width:760px){main{grid-template-columns:1fr}#viewport{min-height:54vh}aside{border-left:0;border-top:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header><div><h1>EURO SOCIAL PC · STUDIO 3D</h1><small>BOSS DE RIEN — prototype Three.js</small></div><small>Mode navigateur · gratuit</small></header>
+<main>
+<section id="viewport"><div id="hint">Scène de démonstration. Importe un fichier GLB/GLTF pour afficher ton vrai personnage.</div></section>
+<aside>
+<div class="group"><h2>PERSONNAGE</h2><label class="filelabel" for="modelFile">＋ Importer un modèle GLB / GLTF</label><input id="modelFile" type="file" accept=".glb,.gltf,model/gltf-binary,model/gltf+json"><button id="reset">Réinitialiser la scène</button><div class="status" id="modelStatus">Aucun modèle importé. La silhouette affichée est un mannequin temporaire, pas Kévin, Junior ou Maya.</div></div>
+<div class="group"><h2>ANIMATIONS</h2><select id="clips"><option value="">Aucune animation détectée</option></select><button class="primary" id="play">▶ Lire l'animation</button><button id="pause">Ⅱ Pause</button><div class="status" id="animStatus">Les animations disponibles dans un GLB apparaîtront ici.</div></div>
+<div class="group"><h2>CAMÉRA</h2><button id="front">Vue de face</button><button id="threeq">Vue 3/4</button><small>Glisse pour tourner · pince pour zoomer · deux doigts pour déplacer.</small></div>
+<div class="group"><h2>ÉTAT DU PROTOTYPE</h2><div class="status">✓ Moteur 3D navigateur<br>✓ Import local GLB/GLTF<br>✓ Lecture des clips intégrés<br>✓ Contrôles tactiles<br>— Montage vidéo et synchronisation labiale non inclus à ce stade.</div></div>
+</aside>
+</main>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const host=document.querySelector('#viewport'),hint=document.querySelector('#hint');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x111a2b);
+const camera=new THREE.PerspectiveCamera(38,1,.1,100);camera.position.set(4,3,6);
+const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'low-power'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=false;host.appendChild(renderer.domElement);
+const controls=new OrbitControls(camera,renderer.domElement);controls.target.set(0,1,0);controls.enableDamping=true;
+scene.add(new THREE.HemisphereLight(0xcfe4ff,0x303044,2));
+const key=new THREE.DirectionalLight(0xffffff,2.1);key.position.set(4,7,5);scene.add(key);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(20,20),new THREE.MeshStandardMaterial({color:0x222c3c,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.04;scene.add(floor);
+const grid=new THREE.GridHelper(16,32,0x52647b,0x334258);grid.position.y=-.025;scene.add(grid);
+const demo=new THREE.Group();scene.add(demo);
+const mat=(c)=>new THREE.MeshStandardMaterial({color:c,roughness:.8});
+const body=new THREE.Mesh(new THREE.CapsuleGeometry(.38,.95,4,8),mat(0x3b526f));body.position.y=1.05;demo.add(body);
+const head=new THREE.Mesh(new THREE.SphereGeometry(.32,16,12),mat(0x9b684c));head.position.y=1.85;demo.add(head);
+const hair=new THREE.Mesh(new THREE.SphereGeometry(.35,12,8),mat(0x171717));hair.scale.set(1.1,.55,1.05);hair.position.y=2.08;demo.add(hair);
+const legMat=mat(0x263044);for(const x of [-.18,.18]){const leg=new THREE.Mesh(new THREE.CylinderGeometry(.11,.13,.72,8),legMat);leg.position.set(x,.36,0);demo.add(leg)}
+const loader=new GLTFLoader();let current=null,mixer=null,actions=[],rafClock=new THREE.Clock();
+function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/Math.max(h,1);camera.updateProjectionMatrix()}new ResizeObserver(resize).observe(host);resize();
+function clearModel(){if(current){scene.remove(current);current.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.dispose()}})}current=null;if(mixer)mixer.stopAllAction();mixer=null;actions=[];demo.visible=true;document.querySelector('#clips').innerHTML='<option value="">Aucune animation détectée</option>'}
+document.querySelector('#reset').onclick=()=>{clearModel();document.querySelector('#modelStatus').textContent='Scène réinitialisée. Mannequin temporaire affiché.';hint.textContent='Importe un GLB pour visualiser ton personnage.';camera.position.set(4,3,6);controls.target.set(0,1,0)};
+document.querySelector('#modelFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;clearModel();const url=URL.createObjectURL(file);document.querySelector('#modelStatus').textContent='Chargement de '+file.name+'…';try{const gltf=await loader.loadAsync(url);current=gltf.scene;scene.add(current);demo.visible=false;const box=new THREE.Box3().setFromObject(current),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());current.position.sub(center);current.position.y-=box.min.y;const max=Math.max(size.x,size.y,size.z);if(max>0)current.scale.setScalar(2.3/max);controls.target.set(0,1,0);camera.position.set(3.7,2.7,5.5);mixer=new THREE.AnimationMixer(current);actions=gltf.animations.map((clip,i)=>({clip,action:mixer.clipAction(clip)}));const sel=document.querySelector('#clips');sel.innerHTML='';if(actions.length){actions.forEach((a,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=a.clip.name||'Animation '+(i+1);sel.append(o)});document.querySelector('#animStatus').textContent=actions.length+' animation(s) trouvée(s).'}else{sel.innerHTML='<option value="">Aucune animation intégrée</option>';document.querySelector('#animStatus').textContent='Ce modèle ne contient aucun clip d’animation.'}document.querySelector('#modelStatus').textContent='Modèle chargé : '+file.name+' · '+actions.length+' animation(s).';hint.textContent='Modèle importé localement. Les fichiers ne sont pas envoyés au serveur.'}catch(err){document.querySelector('#modelStatus').textContent='Erreur de chargement : '+err.message;demo.visible=true}finally{URL.revokeObjectURL(url);e.target.value=''}});
+document.querySelector('#play').onclick=()=>{if(!actions.length)return;actions.forEach(a=>a.action.stop());actions[Number(document.querySelector('#clips').value)]?.action.reset().play()};
+document.querySelector('#pause').onclick=()=>{if(mixer) mixer.timeScale=mixer.timeScale===0?1:0};
+document.querySelector('#front').onclick=()=>{camera.position.set(0,2,7);controls.target.set(0,1,0)};
+document.querySelector('#threeq').onclick=()=>{camera.position.set(4,3,6);controls.target.set(0,1,0)};
+function animate(){requestAnimationFrame(animate);const dt=rafClock.getDelta();if(mixer)mixer.update(dt);controls.update();renderer.render(scene,camera)}animate();
+</script>
+</body></html>
