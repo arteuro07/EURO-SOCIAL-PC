@@ -32,3 +32,8 @@ Voir [Épisode 001 — Mission Sandwich](episodes/001-mission-sandwich.md).
 
 ## Limites honnêtes
 GitHub Actions fournit des machines temporaires avec des quotas. Ce dépôt ne promet ni rendu 3D illimité, ni GPU gratuit, ni viralité. Les assets originaux doivent être sauvegardés hors du runner temporaire, notamment sur le téléphone.
+
+
+## Studio 3D navigateur (prototype)
+
+Une première interface Three.js est disponible dans [`studio/index.html`](studio/index.html). Elle permet d'importer localement un modèle GLB/GLTF, d'inspecter la scène avec les contrôles tactiles et de lire les animations intégrées au fichier. Ouvrir le fichier via GitHub Pages ou un hébergement statique HTTPS ; le chargement des bibliothèques Three.js nécessite une connexion Internet. Le mannequin de démonstration n'est pas un personnage officiel. Les modèles importés restent dans le navigateur et ne sont pas téléversés.
