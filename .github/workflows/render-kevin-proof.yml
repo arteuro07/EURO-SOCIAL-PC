@@ -1,0 +1,38 @@
+name: BOSS DE RIEN — Kévin proof render
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'episodes/proof-kevin/**'
+      - 'production/render-proof.mjs'
+      - '.github/workflows/render-kevin-proof.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install rendering tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Render deterministic frames
+        run: node production/render-proof.mjs
+      - name: Assemble MP4
+        run: |
+          ffmpeg -y -framerate 24 -i out/frames/%04d.png -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -movflags +faststart out/kevin-proof.mp4
+          ffprobe -v error -show_entries format=duration -show_entries stream=width,height,r_frame_rate,codec_name -of json out/kevin-proof.mp4 | tee out/probe.json
+      - name: Upload proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: boss-de-rien-kevin-proof
+          path: out/
+          retention-days: 7
