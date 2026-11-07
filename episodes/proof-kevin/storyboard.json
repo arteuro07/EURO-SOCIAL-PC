@@ -1,0 +1,64 @@
+{
+  "episode_id": "E000",
+  "title": "Le plan parfait — test d'acting",
+  "format": "vertical-9:16",
+  "fps": 24,
+  "duration_seconds": 8,
+  "shots": [
+    {
+      "id": "S001",
+      "start": 0,
+      "end": 3.2,
+      "shot_size": "medium",
+      "camera_angle": "low",
+      "description": "Kévin entre dans le cadre avec une assurance exagérée. Son regard annonce qu'il a une idée géniale.",
+      "dialogue": [{"character": "CHAR-KEVIN", "text": "Laissez faire le boss.", "delivery": "calme, sûr de lui"}],
+      "camera": {"move": "push-in", "intensity": 0.25},
+      "layers": [
+        {"name": "room-background", "role": "background"},
+        {"name": "kevin-key-pose", "role": "character"},
+        {"name": "kevin-ink", "role": "ink"},
+        {"name": "kevin-color", "role": "color"},
+        {"name": "foreground-prop", "role": "prop"}
+      ],
+      "effects": [],
+      "sound": ["ambience-room"]
+    },
+    {
+      "id": "S002",
+      "start": 3.2,
+      "end": 5.8,
+      "shot_size": "close-up",
+      "camera_angle": "eye-level",
+      "description": "Le téléphone révèle une situation gênante. Le sourire de Kévin se fige, ses yeux cherchent une excuse.",
+      "dialogue": [{"character": "CHAR-KEVIN", "text": "C'est… un bug.", "delivery": "hésitant, voix basse"}],
+      "camera": {"move": "shake", "intensity": 0.12},
+      "layers": [
+        {"name": "phone-insert", "role": "prop"},
+        {"name": "kevin-face-surprise", "role": "character"},
+        {"name": "kevin-ink", "role": "ink"},
+        {"name": "impact-lines", "role": "effect"},
+        {"name": "dialogue-caption", "role": "lettering"}
+      ],
+      "effects": ["impact-lines", "held-expression"],
+      "sound": ["notification-pop", "comic-impact"]
+    },
+    {
+      "id": "S003",
+      "start": 5.8,
+      "end": 8,
+      "shot_size": "extreme-close-up",
+      "camera_angle": "high",
+      "description": "Gros plan sur les yeux de Kévin. Une goutte de sueur. Coupe franche sur fond sombre.",
+      "dialogue": [],
+      "camera": {"move": "push-in", "intensity": 0.4},
+      "layers": [
+        {"name": "kevin-eyes-panic", "role": "character"},
+        {"name": "sweat-drop", "role": "effect"},
+        {"name": "ink-vignette", "role": "ink"}
+      ],
+      "effects": ["speed-lines", "dramatic-vignette"],
+      "sound": ["dramatic-sting"]
+    }
+  ]
+}
