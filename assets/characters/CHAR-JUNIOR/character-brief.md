@@ -4,17 +4,17 @@
 **Alias :** Algorithm  
 **Rôle :** rival compétitif, bavard, inventif mais maladroit.
 
-## Direction visuelle
-Personnage original de dessin animé 3D cinématographique haut de gamme. Silhouette nerveuse et mobile. Lunettes distinctives, casquette bleue portée à l'envers, veste bleue et accessoires évoquant un pseudo-stratège. Le visage doit rester expressif et lisible sous les lunettes.
+## Direction visuelle officielle
+Style hybride manga : encrage expressif, aplats et ombres riches, reflets contrôlés et mise en couleur cinématique. Silhouette nerveuse et mobile. Lunettes distinctives, casquette bleue portée à l'envers, veste bleue et accessoires de pseudo-stratège. Le visage doit rester lisible derrière les lunettes.
 
 ## Jeu et expressions
-Il explique ses idées absurdes avec un sérieux absolu. Prévoir concentration, sourire satisfait, confusion, panique, défi et air faussement expert.
+Il présente ses idées absurdes avec un sérieux absolu. Prévoir concentration, sourire satisfait, confusion, panique, défi et air faussement expert. Les mains et la posture renforcent ses explications.
 
-## Cohérence
-Les lunettes, la casquette, la veste et les proportions doivent rester identiques sur les vues face, profil, trois-quarts et dos.
+## Cohérence et planche modèle
+Valider face, profil, trois-quarts, dos, plein pied, expressions, poses de parole et gestes, formes de bouche et accessoires. Les lunettes, la casquette, la veste et les proportions doivent rester identiques.
 
 ## Interdits
-Pas de mannequin géométrique, accessoires flottants, lunettes fusionnées au visage ou changement de tenue entre les vues.
+Pas de mannequin géométrique, accessoires flottants, lunettes fusionnées au visage ou changement de tenue entre les vues. Ne pas copier un personnage existant.
 
 ## Validation
-Aucun modèle n'est approuvé avant inspection multi-vues, test des expressions et test d'animation.
+Le design n'est canon qu'après inspection de la planche multi-angle et d'un test d'acting.
