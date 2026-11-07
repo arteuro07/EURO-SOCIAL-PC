@@ -4,25 +4,29 @@
 **Alias :** Le Boss  
 **Rôle :** personnage central, charismatique, orgueilleux et improvisateur.
 
-## Direction visuelle
-Personnage original de dessin animé 3D cinématographique haut de gamme. Silhouette expressive et lisible, proportions stylisées crédibles, visage très expressif et grands yeux vivants. Peau brun chaud avec shader propre et nuances naturelles. Chevelure afro en boucles texturées et séparées, pas une masse lisse.
+## Direction visuelle officielle
+Style hybride manga : dessin original à l'encrage expressif, couleurs riches, ombres peintes, lumière cinématique et jeu d'acteur exagéré mais lisible. Il doit sembler dessiné par un character designer, pas construit avec des capsules ou primitives géométriques.
 
-Tenue signature : sweat anthracite, cordons blancs et emblème couronne jaune. Les vêtements doivent avoir une vraie coupe, des plis subtils, une épaisseur et des matériaux distincts. Aucun logo ou personnage protégé copié.
+- Peau brun chaud, nuances et volumes dessinés.
+- Afro dense, boucles définies et silhouette reconnaissable.
+- Sweat anthracite, cordons blancs, petit emblème couronne jaune.
+- Silhouette énergique, visage expressif, mains et gestes théâtraux.
+- Palette stable entre les plans et les angles.
 
-## Personnalité à faire lire dans le jeu
-- Il entre dans une scène comme s'il était déjà le chef.
-- Il prend des poses assurées et théâtrales.
-- Quand son plan échoue, son visage et son corps trahissent immédiatement la panique.
-- Son improvisation doit être visible dans les gestes.
+## Personnalité à faire lire
+- Il entre comme s'il était déjà le chef.
+- Poses assurées, menton légèrement relevé, gestes démonstratifs.
+- Quand son plan échoue, les yeux, sourcils, bouche et épaules trahissent la panique.
+- L'improvisation se lit dans ses mains et ses changements de posture.
 
-## Expressions indispensables
-Neutre confiant, sourire arrogant, rire, surprise, panique, sérieux et regard de côté.
+## Model sheet à produire et valider
+Face, profil gauche/droit, trois-quarts, dos, plein pied, gros plan visage, poses debout/course/présentation, mains utiles, expressions neutre confiant, sourire arrogant, rire, surprise, panique, sérieux et regard de côté. Ajouter les formes de bouche pour les dialogues.
 
-## Vues et tests requis
-Face, profil gauche, profil droit, trois-quarts, dos, plein pied et gros plan visage. Tester une pose debout détendue, une pose de présentation et une pose de course.
+## Animation
+Construire les poses clés, anticipation, action, follow-through et pose de maintien. Favoriser les expressions faciales et les gestes avant d'ajouter du mouvement corporel inutile. Les lignes de vitesse et effets manga doivent renforcer les actions, pas masquer le dessin.
 
 ## Interdits
-Pas de personnage cubique, mannequin capsule, visage générique, cheveux en bloc, vêtements peints sur le corps ou changements arbitraires de tenue entre les vues. Les anciens modèles géométriques rejetés ne sont pas des références.
+Pas de personnage cubique, mannequin capsule, visage générique, cheveux en bloc ou vêtements peints comme une texture plate. Ne pas copier un personnage, une planche ou un style signature protégé.
 
 ## Validation
-La conception n'est approuvée qu'après inspection de toutes les vues et d'un test d'expressions cohérent. Cette fiche ne constitue pas encore un modèle 3D.
+Le design n'est canon qu'après inspection de la planche multi-angle, de l'atlas d'expressions et d'un test d'acting. Cette fiche est un brief, pas un modèle graphique final.
