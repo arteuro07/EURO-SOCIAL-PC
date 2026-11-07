@@ -4,17 +4,17 @@
 **Alias :** La Juge  
 **Rôle :** personnage lucide, sarcastique et débrouillard.
 
-## Direction visuelle
-Personnage original de dessin animé 3D cinématographique haut de gamme. Visage expressif, coiffure protectrice détaillée (tresses ou style défini lors du concept), bijoux dorés discrets et veste rose. Posture assurée, silhouette claire et vêtements avec une vraie structure et des matériaux crédibles.
+## Direction visuelle officielle
+Style hybride manga : dessin original à l'encrage subtil, couleurs riches, ombres peintes et lumière cinématique. Visage très expressif, coiffure protectrice détaillée (tresses à définir et stabiliser dans la planche modèle), bijoux dorés discrets et veste rose. Posture assurée et silhouette immédiatement reconnaissable.
 
 ## Jeu et expressions
-Son calme contraste avec les improvisations des autres. Prévoir regard neutre, sourcil levé, ironie, sourire discret, désapprobation et rire.
+Son calme contraste avec les improvisations des autres. Prévoir regard neutre, sourcil levé, ironie, sourire discret, désapprobation et rire. Son regard doit souvent porter la chute comique.
 
-## Cohérence
-La coiffure, les bijoux, la veste et les proportions restent identiques sur toutes les vues et poses.
+## Cohérence et planche modèle
+Valider face, profil, trois-quarts, dos, plein pied, expressions, poses, mains, formes de bouche et détails de coiffure/accessoires. Coiffure, bijoux, veste et proportions restent identiques.
 
 ## Interdits
-Pas de visage générique, coiffure simplifiée en bloc, bijoux flottants ou changements de tenue non motivés.
+Pas de visage générique, coiffure simplifiée en bloc, bijoux flottants ou changements de tenue non motivés. Ne pas copier un personnage existant.
 
 ## Validation
-Aucun modèle n'est approuvé avant inspection multi-vues, test des expressions et test d'animation.
+Le design n'est canon qu'après inspection de la planche multi-angle et d'un test d'acting.
