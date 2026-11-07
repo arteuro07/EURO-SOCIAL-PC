@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""Vérifie la structure et les données de base de EURO SOCIAL PC."""
+"""Vérifie les fondations actuelles de BOSS DE RIEN."""
 from pathlib import Path
 import json
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 required = [
-    "README.md",
-    "universe/series-bible.md",
-    "universe/continuity.md",
-    "universe/asset-policy.md",
-    "episodes/001-mission-sandwich.md",
-    "assets/characters/registry.json",
+    "README.md", "universe/series-bible.md", "universe/continuity.md",
+    "universe/asset-policy.md", "assets/characters/registry.json",
     "assets/ASSET-LICENSES.md",
+    "assets/characters/CHAR-KEVIN/character-brief.md",
+    "assets/characters/CHAR-JUNIOR/character-brief.md",
+    "assets/characters/CHAR-MAYA/character-brief.md",
+    "episodes/proof-kevin/scene.html", "production/render-proof.mjs",
+    ".github/workflows/render-kevin-proof.yml",
 ]
 missing = [p for p in required if not (ROOT / p).is_file()]
 if missing:
@@ -36,13 +37,19 @@ if not expected.issubset(set(ids)):
     print("Erreur: il manque un personnage principal.")
     sys.exit(1)
 
-episode = (ROOT / "episodes/001-mission-sandwich.md").read_text(encoding="utf-8")
-for marker in ("00–05 s", "05–18 s", "18–38 s", "38–52 s", "52–60 s", "ÉPISODE 002"):
-    if marker not in episode:
-        print(f"Découpage incomplet : {marker}")
+scene = (ROOT / "episodes/proof-kevin/scene.html").read_text(encoding="utf-8")
+for marker in ("window.renderFrame=render", "window.__FILM_READY=true", "function kevin(t)"):
+    if marker not in scene:
+        print(f"Scène de preuve incomplète : {marker}")
         sys.exit(1)
 
-print("OK: structure du projet valide")
+renderer = (ROOT / "production/render-proof.mjs").read_text(encoding="utf-8")
+for marker in ("playwright", "FPS*DURATION", "screenshot"):
+    if marker not in renderer:
+        print(f"Moteur de rendu incomplet : {marker}")
+        sys.exit(1)
+
+print("OK: structure actuelle valide")
 print(f"OK: {len(characters)} personnages enregistrés")
-print("OK: épisode E001 possède ses 5 séquences et son accroche vers E002")
-print("NOTE: ce test valide les données, pas un rendu vidéo.")
+print("OK: scène animée de Kévin et moteur image par image présents")
+print("NOTE: la qualité finale doit être jugée sur le MP4 rendu.")
