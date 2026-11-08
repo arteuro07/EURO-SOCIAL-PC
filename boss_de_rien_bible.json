@@ -1,0 +1,34 @@
+{
+  "serie": {
+    "titre": "BOSS DE RIEN",
+    "format": "episodes verticaux d'environ 60 secondes",
+    "genre": ["comedie", "aventure", "action"],
+    "langue": "français familier avec expressions africaines et nouchi utilisées naturellement",
+    "direction_artistique": "manga original cinématique, encrage expressif, couleurs riches, ombres cel-shading, compositions dynamiques, décors détaillés",
+    "regles": [
+      "Créer des personnages originaux et reconnaissables.",
+      "Conserver les mêmes vêtements, coiffures, proportions et accessoires dans toutes les images d'un personnage.",
+      "Ne pas imiter directement une franchise, un manga ou un artiste existant.",
+      "Les images de personnages sont des portraits de référence sur fond blanc uni, sans texte ni logo.",
+      "Les décors ne contiennent aucun personnage, aucune silhouette et aucun texte lisible."
+    ]
+  },
+  "personnages": {
+    "kevin": {
+      "nom": "Kévin",
+      "role": "Le grand rêveur qui lance des plans trop ambitieux.",
+      "prompt_image": "Original teenage/young adult African male manga character, warm deep brown skin, distinctive rounded natural afro hairstyle, expressive dark brown eyes, charcoal oversized hoodie with a small simple gold crown emblem on the chest, slim athletic build, confident mischievous energy, consistent character design, clean readable silhouette, character reference sheet, full body, white background"
+    },
+    "junior": {
+      "nom": "Junior",
+      "role": "Le provocateur malin qui improvise toujours une excuse.",
+      "prompt_image": "Original teenage/young adult African male manga character, medium-dark brown skin, short neat hair mostly under a forward-facing cobalt blue baseball cap, thin rectangular eyeglasses, bright observant eyes, cobalt blue streetwear jacket over a light shirt, slim build, cheeky clever expression, consistent character design, clean readable silhouette, character reference sheet, full body, white background"
+    },
+    "maya": {
+      "nom": "Maya",
+      "role": "La plus lucide du groupe, déterminée et sarcastique.",
+      "prompt_image": "Original teenage/young adult African female manga character, rich brown skin, long neat box braids tied partly back, expressive confident eyes, small gold hoop earrings, vivid magenta-pink jacket over a dark top, athletic build, self-assured stance, consistent character design, clean readable silhouette, character reference sheet, full body, white background"
+    }
+  },
+  "lieux": ["quartier", "terrain", "maquis"]
+}
