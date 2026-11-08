@@ -19,4 +19,4 @@ Le workflow **Générer les assets** lance `gen_assets.py`. Il utilise les secre
 
 Les fichiers existants sont ignorés. Les images sont enregistrées dans `assets/`.
 
-> La seed seule ne garantit pas l'identité d'un personnage entre plusieurs générations. Les sorties doivent être vérifiées et les designs approuvés avant la production.
+> FLUX.1 Schnell accepte uniquement le prompt et le paramètre steps (fixé à 4) : aucun seed n'est envoyé. Le générateur crée une image maîtresse par personnage et un décor par lieu. Une image maîtresse sert de référence visuelle ; elle ne garantit pas à elle seule une identité parfaite dans de nouvelles générations. Les designs doivent être vérifiés et approuvés avant la production.
