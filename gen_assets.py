@@ -10,6 +10,8 @@ import time
 from pathlib import Path
 
 import requests
+from io import BytesIO
+from PIL import Image
 
 ACCOUNT = os.environ["CLOUDFLARE_ACCOUNT_ID"]
 TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
@@ -60,10 +62,18 @@ def generate(prompt: str, output: Path) -> None:
             )
             if response.status_code == 200:
                 image_bytes = decode_image(response)
-                if not image_bytes.startswith(b"\x89PNG\r\n\x1a\n"):
-                    raise RuntimeError("Le résultat reçu n'est pas un PNG valide")
-                output.write_bytes(image_bytes)
-                print(f"OK : {output}")
+                try:
+                    with Image.open(BytesIO(image_bytes)) as image:
+                        image.load()
+                        image.convert('RGB').save(output, format='PNG', optimize=True)
+                except Exception as image_error:
+                    preview = image_bytes[:80].hex()
+                    raise RuntimeError(
+                        f"Image illisible; content-type={response.headers.get('content-type')}; "
+                        f"taille={len(image_bytes)}; début_hex={preview}; détail={image_error}; "
+                        f"réponse={response.text[:300] if 'application/json' in response.headers.get('content-type', '') else ''}"
+                    ) from image_error
+                print(f"OK : {output} ({len(image_bytes)} octets source, converti en PNG)")
                 return
             print(f"HTTP {response.status_code}, essai {attempt}: {response.text[:300]}")
         except Exception as exc:
