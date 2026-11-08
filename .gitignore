@@ -1,8 +1,0 @@
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-renders/
-output/
-*.blend1
-.DS_Store
