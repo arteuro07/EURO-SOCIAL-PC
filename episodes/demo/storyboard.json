@@ -1,0 +1,43 @@
+{
+  "episode": "TEST-ENGINE-001",
+  "titre": "Test du moteur BOSS DE RIEN",
+  "format": "9:16",
+  "scenes": [
+    {
+      "duration": 2.5,
+      "label": "BOSS DE RIEN — TEST MOTEUR",
+      "caption": "Le moteur de rendu est en marche !",
+      "color_top": [
+        22,
+        24,
+        65
+      ],
+      "color_bottom": [
+        196,
+        57,
+        86
+      ],
+      "zoom": 1.08,
+      "pan_x": 0.2,
+      "pan_y": 0
+    },
+    {
+      "duration": 2.5,
+      "label": "TEST CAMÉRA & SOUS-TITRES",
+      "caption": "Caméra en mouvement • composition verticale • sous-titres intégrés",
+      "color_top": [
+        12,
+        60,
+        75
+      ],
+      "color_bottom": [
+        230,
+        130,
+        45
+      ],
+      "zoom": 1.12,
+      "pan_x": -0.2,
+      "pan_y": 0.1
+    }
+  ]
+}
