@@ -1,0 +1,56 @@
+name: Produire BOSS DE RIEN E001
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_generation:
+        description: "Confirmer la génération (consomme le quota Cloudflare Workers AI)"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: boss-de-rien-render-e001
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: inputs.confirm_generation == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer FFmpeg et dépendances
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install requests
+
+      - name: Générer les images de scènes et monter l'épisode
+        run: python production/render_episode.py
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Vérifier le MP4
+        run: |
+          test -s dist/BOSS_DE_RIEN_E001.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dist/BOSS_DE_RIEN_E001.mp4
+
+      - name: Publier le fichier comme artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BOSS-DE-RIEN-E001-MP4
+          path: dist/BOSS_DE_RIEN_E001.mp4
+          if-no-files-found: error
+          retention-days: 14
