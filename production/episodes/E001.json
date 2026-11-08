@@ -1,0 +1,155 @@
+{
+  "id": "E001",
+  "title": "Le plan qui devait tout changer",
+  "format": "vertical_9_16",
+  "target_duration_seconds": 60,
+  "language": "fr",
+  "visual_style": "original cinematic manga, expressive ink lineart, rich saturated colors, polished cel shading, dynamic camera composition",
+  "continuity_rules": [
+    "Use the approved character master images as visual references whenever available.",
+    "Never change a character's face, hairstyle, skin tone, clothing, accessories or body proportions between shots.",
+    "Keep each shot visually readable on a phone screen.",
+    "Do not add readable text inside generated images."
+  ],
+  "cast": [
+    "kevin",
+    "junior",
+    "maya"
+  ],
+  "scenes": [
+    {
+      "id": "S01",
+      "duration_seconds": 10,
+      "location": "quartier",
+      "characters": [
+        "kevin",
+        "junior",
+        "maya"
+      ],
+      "camera": "wide establishing shot, then quick push-in",
+      "action": "Kévin monte sur une caisse comme un grand patron et dévoile son plan mystérieux. Junior et Maya le regardent sans enthousiasme.",
+      "dialogue": [
+        {
+          "character": "kevin",
+          "text": "Les gars, aujourd'hui on devient des légendes !"
+        },
+        {
+          "character": "junior",
+          "text": "La dernière fois, ta légende a fini au commissariat."
+        }
+      ],
+      "image_prompt": "Three friends in a lively West African neighborhood street, Kevin standing confidently on a small crate presenting an absurd grand plan, Junior skeptical, Maya arms crossed, cinematic manga composition"
+    },
+    {
+      "id": "S02",
+      "duration_seconds": 10,
+      "location": "quartier",
+      "characters": [
+        "kevin",
+        "junior",
+        "maya"
+      ],
+      "camera": "medium close-ups with reaction cuts",
+      "action": "Kévin dessine un schéma incompréhensible sur un carton. Maya repère immédiatement le problème.",
+      "dialogue": [
+        {
+          "character": "maya",
+          "text": "Attends… ton plan, c'est vendre de l'ombre au soleil ?"
+        },
+        {
+          "character": "kevin",
+          "text": "Exactement. Tu vois loin !"
+        }
+      ],
+      "image_prompt": "Maya studying a ridiculous hand-drawn business plan on cardboard while Kevin proudly explains and Junior tries not to laugh, expressive faces, cinematic manga"
+    },
+    {
+      "id": "S03",
+      "duration_seconds": 10,
+      "location": "terrain",
+      "characters": [
+        "kevin",
+        "junior",
+        "maya"
+      ],
+      "camera": "tracking shot following the trio",
+      "action": "Les trois traversent le terrain en portant un grand parasol rafistolé comme leur prototype révolutionnaire.",
+      "dialogue": [
+        {
+          "character": "junior",
+          "text": "Même le parasol a perdu confiance en nous."
+        }
+      ],
+      "image_prompt": "Three friends crossing a dusty neighborhood football pitch carrying a comically oversized patched umbrella prototype, dynamic tracking composition, vibrant manga art"
+    },
+    {
+      "id": "S04",
+      "duration_seconds": 10,
+      "location": "terrain",
+      "characters": [
+        "kevin",
+        "junior",
+        "maya"
+      ],
+      "camera": "low angle then fast tilt upward",
+      "action": "Une rafale retourne le parasol et emporte le carton du plan. Kévin garde un sourire forcé.",
+      "dialogue": [
+        {
+          "character": "kevin",
+          "text": "C'est prévu. Phase deux !"
+        },
+        {
+          "character": "maya",
+          "text": "Quelle phase deux ?"
+        }
+      ],
+      "image_prompt": "Strong gust of wind flipping an oversized umbrella inside out, cardboard plan flying away, three friends reacting dramatically, energetic action manga panel"
+    },
+    {
+      "id": "S05",
+      "duration_seconds": 10,
+      "location": "maquis",
+      "characters": [
+        "kevin",
+        "junior",
+        "maya"
+      ],
+      "camera": "slow push-in on Maya, then reaction shot",
+      "action": "Au maquis, Maya pose calmement l'argent de leur collecte sur la table : il ne reste presque rien.",
+      "dialogue": [
+        {
+          "character": "maya",
+          "text": "Votre entreprise vient de faire faillite avant même l'ouverture."
+        },
+        {
+          "character": "junior",
+          "text": "Record mondial, ça."
+        }
+      ],
+      "image_prompt": "At a cozy open-air West African maquis at night, Maya calmly places a few coins on the table while Kevin and Junior look defeated, warm cinematic lighting"
+    },
+    {
+      "id": "S06",
+      "duration_seconds": 10,
+      "location": "maquis",
+      "characters": [
+        "kevin",
+        "junior",
+        "maya"
+      ],
+      "camera": "dramatic close-up on Kevin, end on group reaction",
+      "action": "Kévin se redresse soudain, convaincu d'avoir une nouvelle idée. Maya et Junior échangent un regard inquiet.",
+      "dialogue": [
+        {
+          "character": "kevin",
+          "text": "Demain, on lance le soleil artificiel."
+        },
+        {
+          "character": "junior",
+          "text": "Moi demain, je change de quartier."
+        }
+      ],
+      "image_prompt": "Kevin suddenly lighting up with a wildly confident new idea at the maquis table, Maya and Junior exchange a worried look, comedic cliffhanger, dramatic manga close-up"
+    }
+  ]
+}
