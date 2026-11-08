@@ -1,0 +1,42 @@
+name: BOSS DE RIEN — Tester le moteur vidéo
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "engine/**"
+      - "episodes/demo/**"
+      - ".github/workflows/render-engine-test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  render-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installer FFmpeg et Pillow
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade pip
+          python -m pip install Pillow
+      - name: Vérifier le moteur Python
+        run: python -m py_compile engine/render_episode.py
+      - name: Générer une vidéo de test
+        run: python engine/render_episode.py --storyboard episodes/demo/storyboard.json --output dist/BOSS-DE-RIEN-engine-test.mp4
+      - name: Vérifier le MP4 produit
+        run: |
+          ffprobe -v error -show_entries format=duration:stream=width,height,codec_name -of json dist/BOSS-DE-RIEN-engine-test.mp4
+          test -s dist/BOSS-DE-RIEN-engine-test.mp4
+      - name: Publier la vidéo de test
+        uses: actions/upload-artifact@v4
+        with:
+          name: boss-de-rien-engine-test
+          path: dist/BOSS-DE-RIEN-engine-test.mp4
+          retention-days: 7
