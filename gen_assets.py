@@ -14,8 +14,7 @@ ACCOUNT = os.environ["CLOUDFLARE_ACCOUNT_ID"]
 TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
 MODEL = "@cf/black-forest-labs/flux-1-schnell"
 URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/ai/run/{MODEL}"
-STEPS = int(os.getenv("FLUX_STEPS", "4"))
-SEEDS = [11, 22, 33]
+STEPS = 4  # FLUX.1 schnell uses a fixed four-step inference process.
 EXPRESSIONS = {
     "neutre": "calm confident expression, subtle friendly smile",
     "choque": "shocked expression, raised eyebrows, wide eyes, open mouth",
@@ -50,12 +49,12 @@ def decode_image(response: requests.Response) -> bytes:
     return response.content
 
 
-def generate(prompt: str, seed: int, output: Path) -> None:
+def generate(prompt: str, output: Path) -> None:
     if output.exists() and output.stat().st_size > 0:
         print(f"SKIP déjà présent : {output}")
         return
     output.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"prompt": prompt, "steps": STEPS, "seed": seed}
+    payload = {"prompt": prompt, "steps": STEPS}
     for attempt in range(1, 4):
         try:
             response = requests.post(
@@ -85,25 +84,24 @@ def main() -> None:
 
     for key, info in bible["personnages"].items():
         base = info["prompt_image"]
-        for seed in SEEDS:
-            for expression, expression_prompt in EXPRESSIONS.items():
-                prompt = (
-                    f"{base}, {expression_prompt}, {STYLE}, "
-                    "upper body portrait, centered composition, plain pure white background, "
-                    "no text, no watermark"
-                )
-                generate(prompt, seed, ROOT / "characters" / key / f"{expression}_s{seed}.png")
+        prompt = (
+            f"{base}, {STYLE}, "
+            "full body character master reference, neutral relaxed standing pose, "
+            "front three-quarter view, entire body and shoes visible, "
+            "single character centered, clean pure white studio background, "
+            "no extra people, no text, no watermark"
+        )
+        generate(prompt, ROOT / "characters" / key / "master.png")
 
     for place in bible["lieux"]:
         description = BACKGROUNDS.get(place)
         if not description:
             continue
-        for seed in SEEDS[:2]:
-            prompt = (
-                f"{description}, {STYLE}, detailed wide establishing shot, "
-                "environment concept art, no people, no characters, no text, no watermark"
-            )
-            generate(prompt, seed, ROOT / "backgrounds" / f"{place}_s{seed}.png")
+        prompt = (
+            f"{description}, {STYLE}, detailed wide establishing shot, "
+            "environment concept art, no people, no characters, no text, no watermark"
+        )
+        generate(prompt, ROOT / "backgrounds" / f"{place}.png")
 
 
 if __name__ == "__main__":
