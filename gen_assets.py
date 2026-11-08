@@ -1,6 +1,7 @@
 """Generate the BOSS DE RIEN image library with Cloudflare Workers AI / FLUX.1 schnell.
 
-Existing files are skipped. A seed is a reproducibility hint, not an identity lock.
+Existing files are skipped. FLUX.1 schnell does not expose a seed parameter,
+so generated images are not guaranteed to reproduce the same character identity.
 """
 import base64
 import json
