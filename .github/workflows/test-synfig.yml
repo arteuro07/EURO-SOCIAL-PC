@@ -19,48 +19,60 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y synfig ffmpeg
 
-      - name: Vérifier les commandes sans bloquer sur leur code de retour
+      - name: Vérifier les commandes sans arrêt automatique
         run: |
-          set -u
+          set +e
           echo "=== Executable ==="
           command -v synfig
           echo
-          echo "=== Synfig version (certaines versions renvoient un code non nul) ==="
-          synfig --version 2>&1; echo "synfig_version_exit_code=$?"
+          echo "=== Synfig version ==="
+          synfig --version 2>&1
+          echo "synfig_version_exit_code=$?"
           echo
           echo "=== Synfig targets ==="
-          synfig --targets 2>&1; echo "synfig_targets_exit_code=$?"
+          synfig --targets 2>&1
+          echo "synfig_targets_exit_code=$?"
           echo
           echo "=== Synfig help ==="
-          synfig --help 2>&1; echo "synfig_help_exit_code=$?"
+          synfig --help 2>&1
+          echo "synfig_help_exit_code=$?"
           echo
           echo "=== FFmpeg ==="
           ffmpeg -version 2>&1 | head -n 3
+          echo "ffmpeg_exit_code=${PIPESTATUS[0]}"
           echo "=== Diagnostic terminé ==="
+          exit 0
 
       - name: Enregistrer le diagnostic complet
         if: always()
         run: |
           mkdir -p dist/synfig-test
+          set +e
           {
             echo "=== OS ==="
             cat /etc/os-release
             echo
             echo "=== Synfig executable ==="
-            command -v synfig || true
+            command -v synfig
+            echo "command_exit_code=$?"
             echo
             echo "=== Synfig version ==="
-            synfig --version 2>&1; echo "exit_code=$?"
+            synfig --version 2>&1
+            echo "exit_code=$?"
             echo
             echo "=== Synfig targets ==="
-            synfig --targets 2>&1; echo "exit_code=$?"
+            synfig --targets 2>&1
+            echo "exit_code=$?"
             echo
             echo "=== Synfig help ==="
-            synfig --help 2>&1; echo "exit_code=$?"
+            synfig --help 2>&1
+            echo "exit_code=$?"
             echo
             echo "=== FFmpeg ==="
-            ffmpeg -version 2>&1 | head -n 3 || true
+            ffmpeg -version 2>&1 | head -n 3
+            echo "pipeline_exit_codes=${PIPESTATUS[*]}"
           } > dist/synfig-test/diagnostic.txt
+          exit 0
 
       - name: Publier le diagnostic
         if: always()
