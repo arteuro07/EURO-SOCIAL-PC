@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<canvas version="1.2" width="480" height="270"
+        view-box="-4.0 2.25 4.0 -2.25"
+        fps="24" begin-time="0f" end-time="1s"
+        bgcolor="1.0 1.0 1.0 1.0">
+  <name>BOSS DE RIEN - Synfig motion test</name>
+  <layer type="rectangle" active="true" version="0.2" desc="Background">
+    <param name="color">
+      <color><r>0.08</r><g>0.10</g><b>0.16</b><a>1.0</a></color>
+    </param>
+    <param name="point1"><vector><x>-4.0</x><y>2.25</y></vector></param>
+    <param name="point2"><vector><x>4.0</x><y>-2.25</y></vector></param>
+  </layer>
+  <layer type="rectangle" active="true" version="0.2" desc="Moving test object">
+    <param name="color">
+      <color><r>1.0</r><g>0.25</g><b>0.12</b><a>1.0</a></color>
+    </param>
+    <param name="point1"><vector><x>-1.0</x><y>0.75</y></vector></param>
+    <param name="point2">
+      <animated type="vector">
+        <waypoint time="0f" before="linear" after="linear"><vector><x>-0.5</x><y>-0.75</y></vector></waypoint>
+        <waypoint time="1s" before="linear" after="linear"><vector><x>2.5</x><y>-0.75</y></vector></waypoint>
+      </animated>
+    </param>
+  </layer>
+</canvas>
