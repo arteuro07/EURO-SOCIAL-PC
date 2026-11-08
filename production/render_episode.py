@@ -24,10 +24,10 @@ FPS = 25
 WIDTH, HEIGHT = 1080, 1920
 
 
-def call_flux(prompt: str, path: Path) -> None:
+def call_flux(prompt: str, path: Path) -> Path:
     if path.exists() and path.stat().st_size > 1000:
         print(f"Image déjà présente : {path}")
-        return
+        return path
     response = requests.post(
         API,
         headers={"Authorization": f"Bearer {TOKEN}"},
@@ -71,6 +71,7 @@ def call_flux(prompt: str, path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(raw)
     print(f"Image créée : {output_path} ({output_path.suffix[1:].upper()})")
+    return output_path
 
 
 def timestamp(seconds: float) -> str:
@@ -109,9 +110,7 @@ def main() -> None:
             "dynamic cinematic lighting. Keep character clothing and hairstyles "
             "as described. No speech bubbles, no letters, no captions, no logos, no watermark."
         )
-        call_flux(prompt, image)
-        if not image.exists():
-            image = image.with_suffix(".png")
+        image = call_flux(prompt, image)
         duration = int(scene["duration_seconds"])
         segment = ASSETS / f"{scene['id']}.mp4"
         zoom_expr = "min(1.12,zoom+0.00018)" if index % 2 else "if(eq(on,1),1.12,max(1.0,zoom-0.00018))"
