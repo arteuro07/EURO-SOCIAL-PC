@@ -15,12 +15,6 @@ TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
 MODEL = "@cf/black-forest-labs/flux-1-schnell"
 URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/ai/run/{MODEL}"
 STEPS = 4  # FLUX.1 schnell uses a fixed four-step inference process.
-EXPRESSIONS = {
-    "neutre": "calm confident expression, subtle friendly smile",
-    "choque": "shocked expression, raised eyebrows, wide eyes, open mouth",
-    "colere": "angry expression, furrowed brows, determined eyes, clenched jaw",
-    "rire": "laughing joyfully, eyes gently closed, open smile"
-}
 STYLE = (
     "original cinematic shonen manga illustration, expressive clean black ink lineart, "
     "rich vibrant color palette, polished cel shading, nuanced anime facial features, "
