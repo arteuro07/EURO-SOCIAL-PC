@@ -43,7 +43,7 @@ def frame(i):
     d.rounded_rectangle((168, 425+bob, 372, 690+bob), radius=48, fill=(38, 43, 58), outline=(11, 14, 27), width=7)
     d.polygon([(245, 440+bob), (270, 485+bob), (295, 440+bob)], fill=(18, 21, 34))
     d.arc((220, 440+bob, 320, 545+bob), 15, 165, fill=(118, 124, 145), width=5)
-    d.text((258, 570+bob), "♛", fill=(232, 184, 82), stroke_width=1)
+    d.polygon([(250,570+bob),(255,583+bob),(270,574+bob),(285,583+bob),(290,570+bob),(286,590+bob),(254,590+bob)], fill=(232,184,82))
     # Cou
     d.rectangle((244, 370+bob, 296, 455+bob), fill=(105, 61, 49))
     # Tête légèrement mobile
@@ -71,7 +71,7 @@ def frame(i):
     opening = 5 + int(15 * abs(math.sin(t * math.tau * 3.2)))
     d.ellipse((246+head_x, hy+76, 292+head_x, hy+76+opening), fill=(48,13,19), outline=(43,17,19), width=3)
     # Ligne de mouvement discrète
-    d.text((24, 28), "BOSS DE RIEN  •  TEST PERSONNAGE", fill=(239, 196, 105))
+    d.text((24, 28), "BOSS DE RIEN - TEST PERSONNAGE", fill=(239, 196, 105))
     return im
 
 for n in range(FPS * DURATION):
