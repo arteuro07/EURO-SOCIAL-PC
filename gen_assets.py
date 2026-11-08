@@ -66,7 +66,7 @@ def generate(prompt: str, seed: int, output: Path) -> None:
             )
             if response.status_code == 200:
                 image_bytes = decode_image(response)
-                if not image_bytes.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+                if not image_bytes.startswith(b"\x89PNG\r\n\x1a\n"):
                     raise RuntimeError("Le résultat reçu n'est pas un PNG valide")
                 output.write_bytes(image_bytes)
                 print(f"OK : {output}")
