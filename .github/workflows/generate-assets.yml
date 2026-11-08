@@ -2,6 +2,11 @@ name: Générer les assets BOSS DE RIEN
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "gen_assets.py"
+      - ".github/workflows/generate-assets.yml"
+      - "boss_de_rien_bible.json"
 
 permissions:
   contents: write
