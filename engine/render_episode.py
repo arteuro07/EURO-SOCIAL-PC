@@ -31,12 +31,14 @@ def placeholder_scene(scene, t):
     # Only for engine smoke tests; production scenes should provide a background image.
     top = tuple(scene.get("color_top", [30, 20, 55]))
     bottom = tuple(scene.get("color_bottom", [210, 75, 65]))
-    im = Image.new("RGB", (W, H))
-    px = im.load()
-    for y in range(H):
-        q = y / max(1, H-1)
-        c = tuple(int(top[i]*(1-q)+bottom[i]*q) for i in range(3))
-        for x in range(W): px[x,y] = c
+    # Build a 1-pixel-wide gradient, then scale it: much faster than
+    # assigning every pixel in nested Python loops for every video frame.
+    strip = Image.new("RGB", (1, H))
+    strip.putdata([
+        tuple(int(top[i]*(1-y/max(1,H-1))+bottom[i]*(y/max(1,H-1))) for i in range(3))
+        for y in range(H)
+    ])
+    im = strip.resize((W, H))
     d = ImageDraw.Draw(im, "RGBA")
     for i in range(9):
         x = (i*113 + int(t*28)) % (W+180) - 90
@@ -102,6 +104,7 @@ def render_frame(scene, t):
     return base.convert("RGB")
 
 def main():
+    global W,H,FPS
     ap=argparse.ArgumentParser()
     ap.add_argument("--storyboard",default="episodes/demo/storyboard.json")
     ap.add_argument("--output",default="dist/BOSS-DE-RIEN-demo.mp4")
@@ -110,7 +113,6 @@ def main():
     ap.add_argument("--fps",type=int,default=FPS)
     ap.add_argument("--upscale",action="store_true",help="Export final file at 1080x1920")
     args=ap.parse_args()
-    global W,H,FPS
     W,H,FPS=args.width,args.height,args.fps
     data=json.loads((ROOT/args.storyboard).read_text(encoding="utf-8"))
     scenes=data.get("scenes",[])
