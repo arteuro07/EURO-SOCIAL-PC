@@ -1,0 +1,31 @@
+name: Prototype personnage articulé - Kévin
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+      - name: Installer les dépendances
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pil ffmpeg
+      - name: Animer Kévin image par image
+        run: |
+          set -euo pipefail
+          python3 production/kevin_puppet_test.py
+          test -s dist/kevin-puppet/KEVIN-PUPPET-TEST.mp4
+      - name: Publier la vidéo
+        uses: actions/upload-artifact@v4
+        with:
+          name: KEVIN-PUPPET-TEST
+          path: dist/kevin-puppet/KEVIN-PUPPET-TEST.mp4
+          if-no-files-found: error
+          retention-days: 7
