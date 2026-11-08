@@ -1,0 +1,43 @@
+name: Test de rendu animé Synfig
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Synfig et FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y synfig ffmpeg
+
+      - name: Rendre une animation réelle
+        run: |
+          set -euo pipefail
+          mkdir -p dist/synfig-motion-test
+          synfig -t gif production/synfig_motion_test.sif -o dist/synfig-motion-test/synfig-motion-test.gif
+          test -s dist/synfig-motion-test/synfig-motion-test.gif
+          ffmpeg -y -i dist/synfig-motion-test/synfig-motion-test.gif \
+            -vf "scale=720:405:flags=lanczos,format=yuv420p" \
+            -movflags +faststart -an dist/synfig-motion-test/SYNFIG-MOTION-TEST.mp4
+          test -s dist/synfig-motion-test/SYNFIG-MOTION-TEST.mp4
+          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate \
+            -show_entries format=duration -of default=noprint_wrappers=1 \
+            dist/synfig-motion-test/SYNFIG-MOTION-TEST.mp4
+
+      - name: Publier le test animé
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SYNFIG-MOTION-TEST
+          path: dist/synfig-motion-test/
+          if-no-files-found: error
+          retention-days: 7
