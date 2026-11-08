@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 ROOT = Path(__file__).resolve().parents[1]
 W, H = 720, 1280
 FPS = 24
+SPRITE_CACHE = {}
 
 def load_font(size: int, bold: bool = False):
     candidates = [
@@ -47,11 +48,35 @@ def placeholder_scene(scene, t):
     d.text((42, 90), scene.get("label", "BOSS DE RIEN"), font=load_font(28, True), fill=(255,255,255,210))
     return im
 
-def add_character(canvas, item, t):
-    path = ROOT / item["image"]
+def load_character_sprite(path: Path) -> Image.Image:
+    key = str(path)
+    if key in SPRITE_CACHE:
+        return SPRITE_CACHE[key]
     if not path.exists():
         raise FileNotFoundError(f"Personnage introuvable: {path}")
     sprite = Image.open(path).convert("RGBA")
+    # FLUX Schnell returns an opaque image. Remove only near-white regions
+    # connected to the canvas edges, preserving white details inside the character.
+    rgb = sprite.convert("RGB")
+    source = rgb.load()
+    mask = Image.new("L", sprite.size, 0)
+    target = mask.load()
+    for yy in range(sprite.height):
+        for xx in range(sprite.width):
+            r, g, b = source[xx, yy]
+            if min(r, g, b) >= 238 and max(r, g, b) - min(r, g, b) <= 24:
+                target[xx, yy] = 255
+    for corner in ((0, 0), (sprite.width - 1, 0), (0, sprite.height - 1), (sprite.width - 1, sprite.height - 1)):
+        if mask.getpixel(corner) == 255:
+            ImageDraw.floodfill(mask, corner, 128, thresh=0)
+    alpha = mask.point(lambda value: 0 if value == 128 else 255).filter(ImageFilter.GaussianBlur(0.55))
+    sprite.putalpha(alpha)
+    SPRITE_CACHE[key] = sprite
+    return sprite
+
+def add_character(canvas, item, t):
+    path = ROOT / item["image"]
+    sprite = load_character_sprite(path)
     target_h = int(item.get("height", 620))
     target_w = max(1, int(sprite.width * target_h / sprite.height))
     sprite = sprite.resize((target_w,target_h), Image.Resampling.LANCZOS)
