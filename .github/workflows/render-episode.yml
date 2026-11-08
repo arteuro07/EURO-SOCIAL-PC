@@ -34,7 +34,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg fonts-dejavu-core
-          python -m pip install requests
+          python -m pip install requests piper-tts
+          mkdir -p assets/voices
+          BASE="https://huggingface.co/rhasspy/piper-voices/resolve/main/fr/fr_FR"
+          for VOICE in "tom/medium/fr_FR-tom-medium" "upmc/medium/fr_FR-upmc-medium" "siwis/medium/fr_FR-siwis-medium"; do
+            NAME="${VOICE##*/}"
+            curl -L --fail --retry 3 "$BASE/$VOICE.onnx" -o "assets/voices/$NAME.onnx"
+            curl -L --fail --retry 3 "$BASE/$VOICE.onnx.json" -o "assets/voices/$NAME.onnx.json"
+          done
 
       - name: Générer les images de scènes et monter l'épisode
         run: python production/render_episode.py
@@ -42,15 +49,18 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
+      - name: Générer les voix françaises et mixer les dialogues
+        run: python production/add_voice.py
+
       - name: Vérifier le MP4
         run: |
-          test -s dist/BOSS_DE_RIEN_E001.mp4
+          test -s dist/BOSS_DE_RIEN_E001_VOIX.mp4
           ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dist/BOSS_DE_RIEN_E001.mp4
 
       - name: Publier le fichier comme artifact
         uses: actions/upload-artifact@v4
         with:
-          name: BOSS-DE-RIEN-E001-MP4
+          name: BOSS-DE-RIEN-E001-AVEC-VOIX
           path: dist/BOSS_DE_RIEN_E001.mp4
           if-no-files-found: error
           retention-days: 14
