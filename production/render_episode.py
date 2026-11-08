@@ -87,8 +87,6 @@ def main() -> None:
     episode = json.loads(EPISODE.read_text(encoding="utf-8"))
     ASSETS.mkdir(parents=True, exist_ok=True)
     segments = []
-    subtitles = []
-    elapsed = 0.0
 
     cast_descriptions = " ".join(
         f"{bible['personnages'][key]['nom']}: {bible['personnages'][key]['prompt_image']}."
@@ -129,26 +127,12 @@ def main() -> None:
         ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         segments.append(segment)
 
-        lines = scene.get("dialogue", [])
-        slot = duration / max(1, len(lines))
-        for j, line in enumerate(lines):
-            start = elapsed + j * slot
-            end = min(elapsed + duration, start + slot)
-            character = bible["personnages"][line["character"]]["nom"].upper()
-            text = f"{character} : {line['text']}".replace("\n", " ")
-            subtitles.append(
-                f"{len(subtitles)+1}\n{timestamp(start)} --> {timestamp(end)}\n{text}\n"
-            )
-        elapsed += duration
 
     concat = ASSETS / "concat.txt"
     concat.write_text("".join(f"file '{p.resolve()}'\n" for p in segments), encoding="utf-8")
-    srt = ASSETS / "subtitles.srt"
-    srt.write_text("\n".join(subtitles), encoding="utf-8")
     OUT.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run([
         "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(concat),
-        "-vf", f"subtitles={srt}:force_style='FontName=DejaVu Sans,FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=3,Shadow=1,Alignment=2,MarginV=100'",
         "-t", str(episode["target_duration_seconds"]),
         "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast",
         "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
