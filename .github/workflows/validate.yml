@@ -1,0 +1,36 @@
+name: Vérifier la base BOSS DE RIEN
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Vérifier la syntaxe Python
+        run: python -m py_compile gen_assets.py
+      - name: Vérifier la bible JSON
+        run: python -m json.tool boss_de_rien_bible.json > /dev/null
+      - name: Vérifier la structure attendue
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          bible = json.loads(Path("boss_de_rien_bible.json").read_text(encoding="utf-8"))
+          assert set(bible["personnages"]) == {"kevin", "junior", "maya"}
+          assert set(bible["lieux"]) == {"quartier", "terrain", "maquis"}
+          for key, character in bible["personnages"].items():
+              assert character["nom"] and character["prompt_image"]
+          print("Bible valide : 3 personnages et 3 lieux.")
+          PY
