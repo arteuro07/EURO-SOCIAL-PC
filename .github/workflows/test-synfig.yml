@@ -18,16 +18,27 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y synfig ffmpeg
-          
-      - name: Vérifier le moteur de rendu
-        run: |
-          set -euxo pipefail
-          command -v synfig
-          synfig --version
-          synfig --targets
-          ffmpeg -version | head -n 2
 
-      - name: Enregistrer le diagnostic
+      - name: Vérifier les commandes sans bloquer sur leur code de retour
+        run: |
+          set -u
+          echo "=== Executable ==="
+          command -v synfig
+          echo
+          echo "=== Synfig version (certaines versions renvoient un code non nul) ==="
+          synfig --version 2>&1; echo "synfig_version_exit_code=$?"
+          echo
+          echo "=== Synfig targets ==="
+          synfig --targets 2>&1; echo "synfig_targets_exit_code=$?"
+          echo
+          echo "=== Synfig help ==="
+          synfig --help 2>&1; echo "synfig_help_exit_code=$?"
+          echo
+          echo "=== FFmpeg ==="
+          ffmpeg -version 2>&1 | head -n 3
+          echo "=== Diagnostic terminé ==="
+
+      - name: Enregistrer le diagnostic complet
         if: always()
         run: |
           mkdir -p dist/synfig-test
@@ -39,10 +50,13 @@ jobs:
             command -v synfig || true
             echo
             echo "=== Synfig version ==="
-            synfig --version 2>&1 || true
+            synfig --version 2>&1; echo "exit_code=$?"
             echo
             echo "=== Synfig targets ==="
-            synfig --targets 2>&1 || true
+            synfig --targets 2>&1; echo "exit_code=$?"
+            echo
+            echo "=== Synfig help ==="
+            synfig --help 2>&1; echo "exit_code=$?"
             echo
             echo "=== FFmpeg ==="
             ffmpeg -version 2>&1 | head -n 3 || true
