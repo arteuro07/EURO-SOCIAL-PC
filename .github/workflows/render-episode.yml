@@ -55,12 +55,12 @@ jobs:
       - name: Vérifier le MP4
         run: |
           test -s dist/BOSS_DE_RIEN_E001_VOIX.mp4
-          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dist/BOSS_DE_RIEN_E001.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dist/BOSS_DE_RIEN_E001_VOIX.mp4
 
       - name: Publier le fichier comme artifact
         uses: actions/upload-artifact@v4
         with:
           name: BOSS-DE-RIEN-E001-AVEC-VOIX
-          path: dist/BOSS_DE_RIEN_E001.mp4
+          path: dist/BOSS_DE_RIEN_E001_VOIX.mp4
           if-no-files-found: error
           retention-days: 14
