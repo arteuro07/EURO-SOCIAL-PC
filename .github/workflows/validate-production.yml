@@ -1,0 +1,25 @@
+name: Vérifier la production BOSS DE RIEN
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "boss_de_rien_bible.json"
+      - "production/**"
+      - ".github/workflows/validate-production.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Valider la bible et les épisodes
+        run: python production/validate_episode.py
